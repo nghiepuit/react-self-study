@@ -1,0 +1,8 @@
+/**/node_modules
+/**/.vscode
+/**/yarn.lock
+/**/build
+/**/public
+npm-debug.log
+yarn.lock
+package-lock.json

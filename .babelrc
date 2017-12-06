@@ -1,0 +1,29 @@
+{
+    "presets": [
+        "react",
+        "es2017"
+    ],
+    // babel-plugin-module-resolver là module cho môi trường dev
+    // giúp định danh lại
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "root": [
+                    "./src"
+                ],
+                "alias": {
+                    "@modules": "./src/modules",
+                    "@packages": "./packages",
+                    "@commons": "./src/commons",
+                    "@selectors": "./src/commons/selectors",
+                    "@scss": "./src/commons/scss",
+                    "@components": "./src/components",
+                    "@apis": "./src/commons/apis",
+                    "@images": "./statics/media",
+                    "@webpack": "./webpack"
+                }
+            }
+        ]
+    ]
+}
