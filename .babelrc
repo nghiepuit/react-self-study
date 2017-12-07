@@ -21,7 +21,8 @@
                     "@components": "./src/components",
                     "@apis": "./src/commons/apis",
                     "@images": "./statics/media",
-                    "@webpack": "./webpack"
+                    "@webpack": "./webpack",
+                    "@static": "./views"
                 }
             }
         ]

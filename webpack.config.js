@@ -18,7 +18,8 @@ const devServer = {
     overlay: true,
     stats:  'minimal',
     inline: true,
-    compress: true
+    compress: true,
+    contentBase: '/'
 }
 
 module.exports = {
@@ -80,7 +81,20 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
+            // Bổ sung file-loader để load font hình
+            {
+                test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$|\.wav$|\.mp3$|\.ico$/,
+                loader: 'file-loader'
+            },
+            // load css
+            {
+                test: /\.css$/,
+                loaders: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
         ]
     },
     plugins: [
@@ -94,11 +108,21 @@ module.exports = {
             }
         ),
         new webpack.HotModuleReplacementPlugin(), // plugin này chỉ được sử dụng trên môi trường development, giúp tạo ra server riêng tự động reload khi có bất kỳ thay đổi nào từ các file hệ client của project, giúp việc phát triển trực quan hơn
+        new webpack.ProvidePlugin({ // import jquery
+            '$': 'jquery',
+            'jQuery': 'jquery',
+            'window.$': 'jquery',
+            'window.jQuery': 'jquery'
+        })
     ],
     resolve: {
         // File nào được xử lý
         extensions: ['.js', '.scss', '.css'],
         modules: ['src', 'packages', 'node_modules'],
+        // Sử dụng jquery với bootstrap
+        alias: {
+            'jquery': path.join( __dirname, 'node_modules/jquery/dist/jquery')
+        }
     },
     devServer
 }
