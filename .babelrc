@@ -29,6 +29,7 @@
                     "@images": "./statics/media",
                     "@webpack": "./webpack",
                     "@static": "./views",
+                    "@font" : "./views/fonts"
                 }
             }
         ]
