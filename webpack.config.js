@@ -16,9 +16,10 @@ const devServer = {
     historyApiFallback: true,
     open: true,
     overlay: true,
-    stats:  'minimal',
+    stats: 'minimal',
     inline: true,
-    compress: true
+    compress: true,
+    contentBase: '/'
 }
 
 module.exports = {
@@ -31,7 +32,7 @@ module.exports = {
         // filename: './public/bundle.js',
         filename: '[name]__[hash].chunk.js', // tên khi build
         path: resolvePath('./dist'), // đường dẫn khi build
-        publicPath : '/',
+        publicPath: '/',
         chunkFilename: '[name]__[hash].chunk.js',
         devtoolModuleFilenameTemplate: (info) => path.resolve(info.absoluteResourcePath)
     },
@@ -80,6 +81,19 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            // Bổ sung file-loader để load font hình
+            {
+                test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$|\.wav$|\.mp3$|\.ico$/,
+                loader: 'file-loader'
+            },
+            // load css
+            {
+                test: /\.css$/,
+                loaders: [
+                    'style-loader',
+                    'css-loader'
+                ]
             }
         ]
     },
@@ -94,11 +108,21 @@ module.exports = {
             }
         ),
         new webpack.HotModuleReplacementPlugin(), // plugin này chỉ được sử dụng trên môi trường development, giúp tạo ra server riêng tự động reload khi có bất kỳ thay đổi nào từ các file hệ client của project, giúp việc phát triển trực quan hơn
+        new webpack.ProvidePlugin({ // import jquery
+            '$': 'jquery',
+            'jQuery': 'jquery',
+            'window.$': 'jquery',
+            'window.jQuery': 'jquery'
+        })
     ],
     resolve: {
         // File nào được xử lý
         extensions: ['.js', '.scss', '.css'],
         modules: ['src', 'packages', 'node_modules'],
+        // Sử dụng jquery với bootstrap : error need jQuery when using bootstrap
+        alias: {
+            'jquery': path.join( __dirname, 'node_modules/jquery/dist/jquery')
+        }
     },
     devServer
 }
