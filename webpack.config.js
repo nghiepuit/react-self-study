@@ -7,15 +7,33 @@ const SCSS_DATA = `
     @import "_variable.scss";
 `;
 
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+
+const devServer = {
+    port: 3000,
+    disableHostCheck: true,
+    historyApiFallback: true,
+    open: true,
+    overlay: true,
+    stats:  'minimal',
+    inline: true,
+    compress: true
+}
+
 module.exports = {
     entry: {
         main: [
-            resolvePath('./src/index')
+            resolvePath('./src/index') // điểm bắt đầu build
         ]
     },
     output: {
-        path: __dirname,
-        filename: './public/bundle.js'
+        // filename: './public/bundle.js',
+        filename: '[name]__[hash].chunk.js', // tên khi build
+        path: resolvePath('./dist'), // đường dẫn khi build
+        publicPath : '/',
+        chunkFilename: '[name]__[hash].chunk.js',
+        devtoolModuleFilenameTemplate: (info) => path.resolve(info.absoluteResourcePath)
     },
     module: {
         rules: [
@@ -65,8 +83,22 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        // build and append html
+        new HtmlWebpackPlugin(
+            {
+                title: 'nghiepuit',
+                chunksSortMode: 'dependency',
+                template: './views/index.html',
+                inject: true
+            }
+        ),
+        new webpack.HotModuleReplacementPlugin(), // plugin này chỉ được sử dụng trên môi trường development, giúp tạo ra server riêng tự động reload khi có bất kỳ thay đổi nào từ các file hệ client của project, giúp việc phát triển trực quan hơn
+    ],
     resolve: {
+        // File nào được xử lý
         extensions: ['.js', '.scss', '.css'],
         modules: ['src', 'packages', 'node_modules'],
-    }
+    },
+    devServer
 }

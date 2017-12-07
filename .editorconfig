@@ -1,0 +1,17 @@
+
+# http://editorconfig.org
+root = true
+
+
+[*]
+# unicode
+charset = utf-8
+end_of_line = lf
+# Số column 4
+indent_size = 4
+indent_style = space
+# Khuyến mãi dòng cuối
+insert_final_newline = true
+max_line_length = 80
+# Trim khoảng trắng
+trim_trailing_whitespace = true

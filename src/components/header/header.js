@@ -8,7 +8,7 @@ export default class Header extends Component {
                 <h1>
                     Đây là header
                 </h1>
-                <h2>Demo style loader</h2>
+                <h2>Demo style loader 1</h2>
             </div>
         )
     }

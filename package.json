@@ -4,7 +4,16 @@
   "description": "init project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "better-npm-run start:dev",
+    "build:dev": "better-npm-run build:dev"
+  },
+  "betterScripts": {
+    "start:dev": {
+      "command": "webpack-dev-server --config ./webpack.config"
+    },
+    "build:dev": {
+      "command": "webpack --config ./webpack.config"
+    }
   },
   "keywords": [
     "edu"
@@ -13,10 +22,13 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^7.2.1",
+    "cors": "^2.8.4",
     "cssnano": "^3.10.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "fs": "0.0.1-security",
+    "moment": "^2.19.3",
+    "r2": "^2.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "style-loader": "^0.19.0"
@@ -29,10 +41,13 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "better-npm-run": "^0.1.0",
     "css-loader": "^0.28.7",
+    "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.9",
     "sass-loader": "^6.0.6",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.6"
   }
 }
